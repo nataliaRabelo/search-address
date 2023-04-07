@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "aws-sdk": "^2.1275.0",
+    "fs": "^0.0.1-security",
+    "lodash": "^4.17.21"
+  }
+}
