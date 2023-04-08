@@ -13,8 +13,14 @@ import org.springframework.stereotype.Service;
 public class CepService {
 
     @Autowired
-    private CepRepository cepRepository;
+    public CepRepository cepRepository;
 
+    /**
+     * Obtém um json com endereço completo a partir de um cep com condição de que possua oito dígitos.
+     * @param cep o cep requisitado
+     * @return cepModel o endereço completo de um determinado cep.
+     * @throws Exception exceção lançada quando cep não foi encontrado.
+     */
     public CepModel getCepJson(String cep) throws Exception {
         if (cep.matches("\\d{8}")) {
             return cepRepository.findByCepJson(cep);
@@ -23,6 +29,12 @@ public class CepService {
         }
     }
 
+    /**
+     * Obtém um jsonp com endereço completo a partir de um cep com condição de que possua oito dígitos.
+     * @param cep o cep requisitado
+     * @return cepModel o endereço completo de um determinado cep.
+     * @throws Exception exceção lançada quando cep não foi encontrado.
+     */
     public CepModel getCepJsonP(String cep, String callback) throws Exception {
         if (cep.matches("\\d{8}")) {
             return cepRepository.findByCepJsonP(cep, callback);
@@ -31,6 +43,12 @@ public class CepService {
         }
     }
 
+    /**
+     * Obtém um xml com endereço completo a partir de um cep com condição de que possua oito dígitos.
+     * @param cep o cep requisitado
+     * @return cepModel o endereço completo de um determinado cep.
+     * @throws Exception exceção lançada quando cep não foi encontrado.
+     */
     public CepModel getCepXml(String cep) throws Exception {
         if (cep.matches("\\d{8}")) {
             return cepRepository.findByCepXml(cep);

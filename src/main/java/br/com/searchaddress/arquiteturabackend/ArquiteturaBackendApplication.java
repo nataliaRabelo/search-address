@@ -4,6 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
+ * @author Natália Bruno Rabelo.
  * Classe que implementa a lógica principal da aplicação.
  */
 @SpringBootApplication

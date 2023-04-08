@@ -4,6 +4,10 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * @author Natália Bruno Rabelo.
+ * Classe que armazena os UF de acordo com região.
+ */
 public class Regions {
 
     public static Set<String> regiaoNorte = new HashSet<>(Arrays.asList("AC", "AM", "AP", "PA", "RO", "RR", "TO"));

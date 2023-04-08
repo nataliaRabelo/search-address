@@ -8,7 +8,7 @@ import springfox.documentation.annotations.ApiIgnore;
 
 /**
  * Classe responsável por implementar o Controller de uma página de redirecionamento na raiz da porta.
- * @author Natália.
+ * @author Natália Bruno Rabelo.
  */
 @Configuration
 @RestController

@@ -18,14 +18,23 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * @author Natália Bruno Rabelo
+ * Classe responsável por implementar o controller de /cep/.
+ */
 @RestController
 @RequestMapping(value="/cep")
 @Tag(name = "cep-controller", description = "Controller responsável por requisições de endereço por cep.")
 public class CepController {
 
     @Autowired
-    private CepService cepService;
+    public CepService cepService;
 
+    /**
+     * Método que implementa a requisição de um endereço completo a partir de um cep em formato XML.
+     * @param cep o cep requisitado.
+     * @return uma view com o endereço completo.
+     */
     @ApiOperation(value = "Retorna detalhes sobre o endereço a partir de um cep em formato XML.",
             notes = "Lista detalhes de um endereço específico seguindo o cep passado em xml.")
     @ApiResponses(value = {
@@ -52,6 +61,11 @@ public class CepController {
         }
     }
 
+    /**
+     * Método que implementa a requisição de um endereço completo a partir de um cep em formato JSON.
+     * @param cep o cep requisitado.
+     * @return uma view com o endereço completo.
+     */
     @ApiOperation(value = "Retorna detalhes sobre o endereço a partir de um cep em formato JSON.",
             notes = "Lista detalhes de um endereço específico seguindo o cep passado em json.")
     @ApiResponses(value = {
@@ -78,6 +92,11 @@ public class CepController {
         }
     }
 
+    /**
+     * Método que implementa a requisição de um endereço completo a partir de um cep em formato JSON.
+     * @param cep o cep requisitado.
+     * @return uma view com o endereço completo.
+     */
     @ApiOperation(value = "Retorna detalhes sobre o endereço a partir de um cep em formato JSONP.",
             notes = "Lista detalhes de um endereço específico seguindo o cep passado em jsonp.")
     @ApiResponses(value = {

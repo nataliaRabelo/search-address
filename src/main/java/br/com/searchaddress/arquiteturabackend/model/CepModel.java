@@ -17,6 +17,9 @@ public class CepModel {
     public String estado;
     public String frete;
 
+    public CepModel(){
+
+    }
     /**
      * Construtor padrão de cep através da entidade obtida pela base de dados.
      * @param cepEntity
@@ -38,6 +41,28 @@ public class CepModel {
         }else if(Regions.regiaoSul.contains(cepEntity.uf)){
             frete = "17.30";
         }else if(Regions.regiaoNorte.contains(cepEntity.uf)){
+            frete = "20.83";
+        }
+        this.frete = frete;
+    }
+
+    public CepModel(String cep, String rua, String complemento, String bairro, String cidade, String estado){
+        this.cep = cep;
+        this.rua = rua;
+        this.complemento = complemento;
+        this.bairro = bairro;
+        this.cidade = cidade;
+        this.estado = estado;
+        String frete = "";
+        if(Regions.regiaoSudeste.contains(estado)){
+            frete = "7.85";
+        }else if(Regions.regiaoCentroOeste.contains(estado)){
+            frete = "12.50";
+        }else if(Regions.regiaoNordeste.contains(estado)){
+            frete = "15.98";
+        }else if(Regions.regiaoSul.contains(estado)){
+            frete = "17.30";
+        }else if(Regions.regiaoNorte.contains(estado)){
             frete = "20.83";
         }
         this.frete = frete;

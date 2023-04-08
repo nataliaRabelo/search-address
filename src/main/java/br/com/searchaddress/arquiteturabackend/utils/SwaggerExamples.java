@@ -22,49 +22,48 @@ public class SwaggerExamples {
             	</html>
             """;
 
+    /**
+     * Exemplo de resposta em getJson de CepController.
+     */
     public static final String JSONEXAMPLE = """
                 {
                   "cep": string,
-                  "logradouro": string,
+                  "rua": string,
                   "complemento": string,
                   "bairro": string,
-                  "localidade": string,
-                  "uf": string,
-                  "ibge": string,
-                  "gia": string,
-                  "ddd": string,
-                  "siafi": string
+                  "cidade": string,
+                  "estado": string,
+                  "frete": string
                 }
             """;
 
+    /**
+     * Exemplo de resposta em getJsonP de CepController.
+     */
     public static final String JSONPEXAMPLE = """
                 callback_name({
                   "cep": string,
-                  "logradouro": string,
+                  "rua": string,
                   "complemento": string,
                   "bairro": string,
-                  "localidade": string,
-                  "uf": string,
-                  "ibge": string,
-                  "gia": string,
-                  "ddd": string,
-                  "siafi": string
+                  "cidade": string,
+                  "estado": string,
+                  "frete": string
                 });
             """;
 
+    /**
+     * Exemplo de resposta em getXml de CepController.
+     */
     public static final String XMLEXAMPLE = """
-                <?xml version="1.0" encoding="UTF-8"?>
-                <xmlcep>
-                    <cep>string</cep>
-                    <logradouro>string</logradouro>
-                    <complemento>string</complemento>
-                    <bairro>string</bairro>
-                    <localidade>string</localidade>
-                    <uf>string</uf>
-                    <ibge>string</ibge>
-                    <gia>string</gia>
-                    <ddd>string</ddd>
-                    <siafi>string</siafi>
-                </xmlcep>
+                <cep>
+                  <cep>string</cep>
+                  <rua>string</rua>
+                  <complemento>string</complemento>
+                  <bairro>string</bairro>
+                  <cidade>string</cidade>
+                  <estado>string</estado>
+                  <frete>string</frete>
+                </cep>
             """;
 }

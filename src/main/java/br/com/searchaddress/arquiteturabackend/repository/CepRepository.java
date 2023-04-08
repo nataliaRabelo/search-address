@@ -21,6 +21,11 @@ import java.io.IOException;
 @Repository
 public class CepRepository {
 
+    /**
+     * Realiza uma requisição ge GET Rest API do ViaCEP cujo formato do retorno é em json.
+     * @param cep o cep do endereço requisitado.
+     * @return cepModel o endereço completo preenchido.
+     */
     public CepModel findByCepJson(String cep) {
         String url = "https://viacep.com.br/ws/" + cep + "/json/";
         RestTemplate restTemplate = new RestTemplate();
@@ -32,6 +37,12 @@ public class CepRepository {
         return null;
     }
 
+    /**
+     * Realiza uma requisição ge GET Rest API do ViaCEP cujo formato do retorno é em jsonp.
+     * @param cep o cep do endereço requisitado.
+     * @param callback o nome do método callback.
+     * @return cepModel o endereço completo preenchido.
+     */
     public CepModel findByCepJsonP(String cep, String callback) {
         String url = "https://viacep.com.br/ws/" + cep + "/json/?callback=" + callback;
         RestTemplate restTemplate = new RestTemplate();
@@ -52,6 +63,11 @@ public class CepRepository {
     }
 
 
+    /**
+     * Realiza uma requisição ge GET Rest API do ViaCEP cujo formato do retorno é em xml.
+     * @param cep o cep do endereço requisitado.
+     * @return cepModel o endereço completo preenchido.
+     */
     public CepModel findByCepXml(String cep) {
         String url = "https://viacep.com.br/ws/" + cep + "/xml/";
         RestTemplate restTemplate = new RestTemplate();
