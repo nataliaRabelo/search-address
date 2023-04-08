@@ -16,6 +16,11 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+/**
+ * @author Natália Bruno Rabelo
+ *
+ * Classe responsável por implementar os testes unitários dos métodos de CepController.
+ */
 @ExtendWith(MockitoExtension.class)
 class CepControllerTest {
     @InjectMocks
@@ -30,8 +35,12 @@ class CepControllerTest {
         MockitoAnnotations.openMocks(this);
     }
 
+    /**
+     * Testa o método GetCepXml de CepController.
+     * @throws Exception exceção lançada quando cep não foi encontrado.
+     */
     @Test
-    void testGetCepXml() throws Exception {
+    public void testGetCepXml() throws Exception {
         // Given
         String cep1 = "01001-000";
         String cleanCep1 = "01001000";
@@ -91,9 +100,12 @@ class CepControllerTest {
                 "</cep>", response3);
     }
 
-
+    /**
+     * Testa o método GetCepJson de CepController.
+     * @throws Exception exceção lançada quando cep não foi encontrado.
+     */
     @Test
-    void testGetCepJson() throws Exception {
+    public void testGetCepJson() throws Exception {
         // Given
         String cep1 = "01001-000";
         String cleanCep1 = "01001000";
@@ -129,6 +141,10 @@ class CepControllerTest {
         assertEquals("{\"cep\":\"70297-400\",\"rua\":\"EQS 414/415\",\"complemento\":\"\",\"bairro\":\"Asa Sul\",\"cidade\":\"Brasília\",\"estado\":\"DF\",\"frete\":\"12.50\"}", response3);
     }
 
+    /**
+     * Testa o método GetCepJsonP de CepController.
+     * @throws Exception exceção lançada quando cep não foi encontrado.
+     */
     @Test
     public void testGetCepJsonP() throws Exception {
         String callBack = "myCall";
