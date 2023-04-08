@@ -1,7 +1,7 @@
 package br.com.searchaddress.arquiteturabackend.utils;
 
 /**
- * @author Natália.
+ * @author Natália Bruno Rabelo.
  * Classe que armazena os exemplos para anotações do swagger da API.
  */
 public class SwaggerExamples {

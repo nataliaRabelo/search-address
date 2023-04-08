@@ -12,7 +12,7 @@ import springfox.documentation.spring.web.plugins.Docket;
 /**
  * Classe responsável por configurar o Swagger.
  * Acesso padrão com configuração de desenvolvimento: http://localhost:{PORT}/swagger-ui/
- * @author Natália.
+ * @author Natália Bruno Rabelo.
  */
 @Configuration
 public class Swagger2Configuration {

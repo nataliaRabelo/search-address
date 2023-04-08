@@ -1,10 +1,10 @@
 package br.com.searchaddress.arquiteturabackend.controller;
 
 import br.com.searchaddress.arquiteturabackend.model.CepModel;
-import br.com.searchaddress.arquiteturabackend.repository.entity.CepEntity;
 import br.com.searchaddress.arquiteturabackend.service.CepService;
 import br.com.searchaddress.arquiteturabackend.utils.SwaggerExamples;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import br.com.searchaddress.arquiteturabackend.view.CepView;
+import br.com.searchaddress.arquiteturabackend.view.ExceptionView;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -16,7 +16,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -40,16 +39,16 @@ public class CepController {
             @ApiResponse(responseCode = "404", description = "Cep não encontrado."),
             @ApiResponse(responseCode = "500", description = "Erro interno na requisição")})
     @GetMapping(value = "/xml/{cep}", produces = MediaType.APPLICATION_XML_VALUE)
-    public ResponseEntity<?> getCepXml(@ApiParam(name = "cep", type = "String", value = "Cep do endereço que está sendo solicitado.", example = "01001000", required = true) @PathVariable String cep) {
+    public String getCepXml(@ApiParam(name = "cep", type = "String", value = "Cep do endereço que está sendo solicitado.", example = "01001000", required = true) @PathVariable String cep) {
         try {
             CepModel cepResult = cepService.getCepXml(cep);
             if (cepResult != null) {
-                return ResponseEntity.ok().body(cepResult);
+                return new CepView(cepResult).toXml();
             } else {
-                return ResponseEntity.badRequest().body("CEP inválido.");
+                return new ExceptionView(HttpStatus.NOT_FOUND.value(), HttpStatus.NOT_FOUND.name(), "CEP não encontrado").toXml();
             }
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro interno no servidor.");
+            return new ExceptionView(HttpStatus.INTERNAL_SERVER_ERROR.value(), HttpStatus.INTERNAL_SERVER_ERROR.name(), "Erro interno no servidor.").toXml();
         }
     }
 
@@ -66,16 +65,16 @@ public class CepController {
             @ApiResponse(responseCode = "404", description = "Cep não encontrado."),
             @ApiResponse(responseCode = "500", description = "Erro interno na requisição")})
     @GetMapping(value = "/json/{cep}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> getCepJson(@ApiParam(name = "cep", type = "String", value = "Cep do endereço que está sendo solicitado.", example = "01001000", required = true) @PathVariable String cep) {
+    public String getCepJson(@ApiParam(name = "cep", type = "String", value = "Cep do endereço que está sendo solicitado.", example = "01001000", required = true) @PathVariable String cep) {
         try {
             CepModel cepResult = cepService.getCepJson(cep);
             if (cepResult != null) {
-                return ResponseEntity.ok().body(cepResult);
+                return new CepView(cepResult).toJson();
             } else {
-                return ResponseEntity.badRequest().body("CEP inválido.");
+                return new ExceptionView(HttpStatus.NOT_FOUND.value(), HttpStatus.NOT_FOUND.name(), "CEP não encontrado").toJson();
             }
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro interno no servidor.");
+            return new ExceptionView(HttpStatus.INTERNAL_SERVER_ERROR.value(), HttpStatus.INTERNAL_SERVER_ERROR.name(), "Erro interno no servidor.").toJson();
         }
     }
 
@@ -92,18 +91,16 @@ public class CepController {
             @ApiResponse(responseCode = "404", description = "Cep não encontrado."),
             @ApiResponse(responseCode = "500", description = "Erro interno na requisição")})
     @GetMapping(value = "/jsonp/{cep}", produces = "application/javascript")
-    public ResponseEntity<?> getCepJsonP(@ApiParam(name = "cep", type = "String", value = "Cep do endereço que está sendo solicitado.", example = "01001000", required = true) @PathVariable String cep, @ApiParam(name = "callback", type = "String", value = "Nome do callback.", example = "callback_name", required = true) @RequestParam(defaultValue = "callback") String callback) {
+    public String getCepJsonP(@ApiParam(name = "cep", type = "String", value = "Cep do endereço que está sendo solicitado.", example = "01001000", required = true) @PathVariable String cep, @ApiParam(name = "callback", type = "String", value = "Nome do callback.", example = "callback_name", required = true) @RequestParam(defaultValue = "callback") String callback) {
         try {
             CepModel cepResult = cepService.getCepJsonP(cep, callback);
             if (cepResult != null) {
-                String json = new ObjectMapper().writeValueAsString(cepResult);
-                String jsonp = callback + "(" + json + ");";
-                return ResponseEntity.ok().body(jsonp);
+                return new CepView(cepResult).toJsonP(callback);
             } else {
-                return ResponseEntity.badRequest().body("CEP inválido.");
+                return new ExceptionView(HttpStatus.NOT_FOUND.value(), HttpStatus.NOT_FOUND.name(), "CEP não encontrado").toJson();
             }
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro interno no servidor.");
+            return new ExceptionView(HttpStatus.INTERNAL_SERVER_ERROR.value(), HttpStatus.INTERNAL_SERVER_ERROR.name(), "Erro interno no servidor.").toJson();
         }
     }
 
