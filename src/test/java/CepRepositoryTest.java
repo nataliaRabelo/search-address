@@ -1,15 +1,10 @@
 import br.com.searchaddress.arquiteturabackend.model.CepModel;
 import br.com.searchaddress.arquiteturabackend.repository.CepRepository;
-import br.com.searchaddress.arquiteturabackend.repository.entity.CepEntity;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 
 import org.springframework.web.client.RestTemplate;
 
@@ -20,6 +15,11 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import static org.mockito.Mockito.*;
 
+/**
+ * @author Natália Bruno Rabelo
+ *
+ * Classe responsável por implementar os testes unitários dos métodos de CepRepository.
+ */
 public class CepRepositoryTest {
 
     @InjectMocks
@@ -28,27 +28,44 @@ public class CepRepositoryTest {
     @Mock
     private RestTemplate restTemplate;
 
+    private CepModel cepModel1;
+    private CepModel cepModel2;
+    private CepModel cepModel3;
 
+    private final String cep1 = "01001-000";
+    private final String cleanCep1 = "01001000";
+    private final String cep2 = "20010-010";
+    private final String cleanCep2 = "20010010";
+    private final String cep3 = "70297-400";
+    private final String cleanCep3 = "70297400";
+
+    private final String baseUrlCep1 = "https://viacep.com.br/ws/" + cleanCep1;
+    private final String baseUrlCep2 = "https://viacep.com.br/ws/" + cleanCep2;
+    private final String baseUrlCep3 = "https://viacep.com.br/ws/" + cleanCep3;
+
+    private final String formatPath1 = "/json/";
+    private final String formatPath2 = "json/?callback=";
+    private final String formatPath3 = "/xml/";
+
+    /**
+     * Configura objetos necessários para a execução dos testes.
+     */
     @BeforeEach
     public void setup() {
         MockitoAnnotations.openMocks(this);
+        cepModel1 = new CepModel(cep1, "Praça da Sé", "lado ímpar", "Sé", "São Paulo", "SP");
+        cepModel2 = new CepModel(cep2, "Praça Quinze de Novembro", "", "Centro", "Rio de Janeiro", "RJ");
+        cepModel3 = new CepModel(cep3, "EQS 414/415", "", "Asa Sul", "Brasília", "DF");
     }
 
+    /**
+     * Testa o método findByCepJson() da classe CepRepository.
+     */
     @Test
     public void testFindByCepJson() {
-        String cep1 = "01001-000";
-        String cleanCep1 = "01001000";
-        String cep2 = "20010-010";
-        String cleanCep2 = "20010010";
-        String cep3 = "70297-400";
-        String cleanCep3 = "70297400";
-        String url1 = "https://viacep.com.br/ws/" + cleanCep1 + "/json/";
-        String url2 = "https://viacep.com.br/ws/" + cleanCep2 + "/json/";
-        String url3 = "https://viacep.com.br/ws/" + cleanCep3 + "/json/";
-
-        CepModel cepModel1 = new CepModel(cep1, "Praça da Sé", "lado ímpar", "Sé", "São Paulo", "SP");
-        CepModel cepModel2 = new CepModel(cep2, "Praça Quinze de Novembro", "", "Centro", "Rio de Janeiro", "RJ");
-        CepModel cepModel3 = new CepModel(cep3, "EQS 414/415", "", "Asa Sul", "Brasília", "DF");
+        String url1 = baseUrlCep1 + formatPath1;
+        String url2 = baseUrlCep2 + formatPath1;
+        String url3 = baseUrlCep3 + formatPath1;
 
         CepModel result1 = cepRepository.findByCepJson(cleanCep1);
         CepModel result2 = cepRepository.findByCepJson(cleanCep2);
@@ -82,26 +99,19 @@ public class CepRepositoryTest {
         assertEquals(cepModel3.frete, result3.frete);
     }
 
+    /**
+     * Testa o método findByCepJsonP() da classe CepRepository.
+     */
     @Test
     public void testFindByCepJsonP() throws IOException {
-        String callback = "callback";
-        String cep1 = "01001-000";
-        String cleanCep1 = "01001000";
-        String cep2 = "20010-010";
-        String cleanCep2 = "20010010";
-        String cep3 = "70297-400";
-        String cleanCep3 = "70297400";
-        String url1 = "https://viacep.com.br/ws/" + cleanCep1 + "/json/?callback=" + callback;
-        String url2 = "https://viacep.com.br/ws/" + cleanCep2 + "/json/?callback=" + callback;
-        String url3 = "https://viacep.com.br/ws/" + cleanCep3 + "/json/?callback=" + callback;
+        String callback = "myCallback";
+        String url1 = baseUrlCep1 + formatPath2 + callback;
+        String url2 = baseUrlCep2 + formatPath2 + callback;
+        String url3 = baseUrlCep3 + formatPath2 + callback;
 
-        CepModel cepModel1 = new CepModel(cep1, "Praça da Sé", "lado ímpar", "Sé", "São Paulo", "SP");
-        CepModel cepModel2 = new CepModel(cep2, "Praça Quinze de Novembro", "", "Centro", "Rio de Janeiro", "RJ");
-        CepModel cepModel3 = new CepModel(cep3, "EQS 414/415", "", "Asa Sul", "Brasília", "DF");
-
-        CepModel result1 = cepRepository.findByCepXml(cleanCep1);
-        CepModel result2 = cepRepository.findByCepXml(cleanCep2);
-        CepModel result3 = cepRepository.findByCepXml(cleanCep3);
+        CepModel result1 = cepRepository.findByCepJsonP(cleanCep1, callback);
+        CepModel result2 = cepRepository.findByCepJsonP(cleanCep2, callback);
+        CepModel result3 = cepRepository.findByCepJsonP(cleanCep3, callback);
 
         when(restTemplate.getForObject(url1, CepModel.class)).thenReturn(result1);
         assertNotNull(result1);
@@ -131,21 +141,15 @@ public class CepRepositoryTest {
         assertEquals(cepModel3.frete, result3.frete);
     }
 
+    /**
+     * Testa o método findByCepXml() da classe CepRepository.
+     */
     @Test
     public void testFindByCepXml() {
-        String cep1 = "01001-000";
-        String cleanCep1 = "01001000";
-        String cep2 = "20010-010";
-        String cleanCep2 = "20010010";
-        String cep3 = "70297-400";
-        String cleanCep3 = "70297400";
-        String url1 = "https://viacep.com.br/ws/" + cleanCep1 + "/xml/";
-        String url2 = "https://viacep.com.br/ws/" + cleanCep2 + "/xml/";
-        String url3 = "https://viacep.com.br/ws/" + cleanCep3 + "/xml/";
 
-        CepModel cepModel1 = new CepModel(cep1, "Praça da Sé", "lado ímpar", "Sé", "São Paulo", "SP");
-        CepModel cepModel2 = new CepModel(cep2, "Praça Quinze de Novembro", "", "Centro", "Rio de Janeiro", "RJ");
-        CepModel cepModel3 = new CepModel(cep3, "EQS 414/415", "", "Asa Sul", "Brasília", "DF");
+        String url1 = baseUrlCep1 + formatPath3;
+        String url2 = baseUrlCep2 + formatPath3;
+        String url3 = baseUrlCep3 + formatPath3;
 
         CepModel result1 = cepRepository.findByCepXml(cleanCep1);
         CepModel result2 = cepRepository.findByCepXml(cleanCep2);

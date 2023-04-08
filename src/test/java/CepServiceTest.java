@@ -26,9 +26,27 @@ class CepServiceTest {
     @Mock
     private CepRepository cepRepository;
 
+    private CepModel cepModel1;
+    private CepModel cepModel2;
+    private CepModel cepModel3;
+
+    private final String cep1 = "01001-000";
+    private final String cleanCep1 = "01001000";
+    private final String cep2 = "20010-010";
+    private final String cleanCep2 = "20010010";
+    private final String cep3 = "70297-400";
+    private final String cleanCep3 = "70297400";
+
+    /**
+     * Configura objetos necessários para a execução dos testes.
+     */
     @BeforeEach
     public void setup() {
         MockitoAnnotations.openMocks(this);
+
+        cepModel1 = new CepModel(cep1, "Praça da Sé", "lado ímpar", "Sé", "São Paulo", "SP");
+        cepModel2 = new CepModel(cep2, "Praça Quinze de Novembro", "", "Centro", "Rio de Janeiro", "RJ");
+        cepModel3 = new CepModel(cep3, "EQS 414/415", "", "Asa Sul", "Brasília", "DF");
     }
 
     /**
@@ -38,16 +56,6 @@ class CepServiceTest {
     @Test
     void testGetCepJson() throws Exception {
         // Given
-        String cep1 = "01001-000";
-        String cleanCep1 = "01001000";
-        String cep2 = "20010-010";
-        String cleanCep2 = "20010010";
-        String cep3 = "70297-400";
-        String cleanCep3 = "70297400";
-
-        CepModel cepModel1 = new CepModel(cep1, "Praça da Sé", "lado ímpar", "Sé", "São Paulo", "SP");
-        CepModel cepModel2 = new CepModel(cep2, "Praça Quinze de Novembro", "", "Centro", "Rio de Janeiro", "RJ");
-        CepModel cepModel3 = new CepModel(cep3, "EQS 414/415", "", "Asa Sul", "Brasília", "DF");
 
         when(cepRepository.findByCepJson(cleanCep1)).thenReturn(cepModel1);
         when(cepRepository.findByCepJson(cleanCep2)).thenReturn(cepModel2);
@@ -72,16 +80,6 @@ class CepServiceTest {
     void testGetCepJsonP() throws Exception {
         // Given
         String callback = "myCallback";
-        String cep1 = "01001-000";
-        String cleanCep1 = "01001000";
-        String cep2 = "20010-010";
-        String cleanCep2 = "20010010";
-        String cep3 = "70297-400";
-        String cleanCep3 = "70297400";
-
-        CepModel cepModel1 = new CepModel(cep1, "Praça da Sé", "lado ímpar", "Sé", "São Paulo", "SP");
-        CepModel cepModel2 = new CepModel(cep2, "Praça Quinze de Novembro", "", "Centro", "Rio de Janeiro", "RJ");
-        CepModel cepModel3 = new CepModel(cep3, "EQS 414/415", "", "Asa Sul", "Brasília", "DF");
 
         when(cepRepository.findByCepJsonP(cleanCep1, callback)).thenReturn(cepModel1);
         when(cepRepository.findByCepJsonP(cleanCep2, callback)).thenReturn(cepModel2);
@@ -105,16 +103,6 @@ class CepServiceTest {
     @Test
     void testGetCepXml() throws Exception {
         // Given
-        String cep1 = "01001-000";
-        String cleanCep1 = "01001000";
-        String cep2 = "20010-010";
-        String cleanCep2 = "20010010";
-        String cep3 = "70297-400";
-        String cleanCep3 = "70297400";
-
-        CepModel cepModel1 = new CepModel(cep1, "Praça da Sé", "lado ímpar", "Sé", "São Paulo", "SP");
-        CepModel cepModel2 = new CepModel(cep2, "Praça Quinze de Novembro", "", "Centro", "Rio de Janeiro", "RJ");
-        CepModel cepModel3 = new CepModel(cep3, "EQS 414/415", "", "Asa Sul", "Brasília", "DF");
 
         when(cepRepository.findByCepXml(cleanCep1)).thenReturn(cepModel1);
         when(cepRepository.findByCepXml(cleanCep2)).thenReturn(cepModel2);
