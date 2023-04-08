@@ -50,7 +50,13 @@ public class CepController {
     @GetMapping(value = "/xml/{cep}", produces = MediaType.APPLICATION_XML_VALUE)
     public String getCepXml(@ApiParam(name = "cep", type = "String", value = "Cep do endereço que está sendo solicitado.", example = "01001000", required = true) @PathVariable String cep) {
         try {
-            CepModel cepResult = cepService.getCepXml(cep);
+            CepModel cepResult;
+            if(cep.contains("-")){ // verifica se entrada possui hífen e realiza a limpeza caso tenha.
+                String cleanCep = cep.replace("-", "");
+                cepResult = cepService.getCepXml(cleanCep);
+            }else{
+                cepResult = cepService.getCepXml(cep);
+            }
             if (cepResult != null) {
                 return new CepView(cepResult).toXml();
             } else {
@@ -81,7 +87,13 @@ public class CepController {
     @GetMapping(value = "/json/{cep}", produces = MediaType.APPLICATION_JSON_VALUE)
     public String getCepJson(@ApiParam(name = "cep", type = "String", value = "Cep do endereço que está sendo solicitado.", example = "01001000", required = true) @PathVariable String cep) {
         try {
-            CepModel cepResult = cepService.getCepJson(cep);
+            CepModel cepResult;
+            if(cep.contains("-")){ // verifica se entrada possui hífen e realiza a limpeza caso tenha.
+                String cleanCep = cep.replace("-", "");
+                cepResult = cepService.getCepJson(cleanCep);
+            }else{
+                cepResult = cepService.getCepJson(cep);
+            }
             if (cepResult != null) {
                 return new CepView(cepResult).toJson();
             } else {
@@ -112,7 +124,13 @@ public class CepController {
     @GetMapping(value = "/jsonp/{cep}", produces = "application/javascript")
     public String getCepJsonP(@ApiParam(name = "cep", type = "String", value = "Cep do endereço que está sendo solicitado.", example = "01001000", required = true) @PathVariable String cep, @ApiParam(name = "callback", type = "String", value = "Nome do callback.", example = "callback_name", required = true) @RequestParam(defaultValue = "callback") String callback) {
         try {
-            CepModel cepResult = cepService.getCepJsonP(cep, callback);
+            CepModel cepResult;
+            if(cep.contains("-")){ // verifica se entrada possui hífen e realiza a limpeza caso tenha.
+                String cleanCep = cep.replace("-", "");
+                cepResult = cepService.getCepJsonP(cleanCep, callback);
+            }else{
+                cepResult = cepService.getCepJsonP(cep, callback);
+            }
             if (cepResult != null) {
                 return new CepView(cepResult).toJsonP(callback);
             } else {

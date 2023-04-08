@@ -33,59 +33,135 @@ class CepControllerTest {
     @Test
     void testGetCepXml() throws Exception {
         // Given
-        String cep = "01001000";
-        final CepModel cepModel = new CepModel(cep, "Praça da Sé", "lado ímpar", "Sé", "São Paulo", "SP");
+        String cep1 = "01001-000";
+        String cleanCep1 = "01001000";
+        String cep2 = "20010-010";
+        String cleanCep2 = "20010010";
+        String cep3 = "70297-400";
+        String cleanCep3 = "70297400";
 
-        when(service.getCepXml(cep)).thenReturn(cepModel);
+        CepModel cepModel1 = new CepModel(cep1, "Praça da Sé", "lado ímpar", "Sé", "São Paulo", "SP");
+        CepModel cepModel2 = new CepModel(cep2, "Praça Quinze de Novembro", "", "Centro", "Rio de Janeiro", "RJ");
+        CepModel cepModel3 = new CepModel(cep3, "EQS 414/415", "", "Asa Sul", "Brasília", "DF");
+
+        when(service.getCepXml(cleanCep1)).thenReturn(cepModel1);
+        when(service.getCepXml(cleanCep2)).thenReturn(cepModel2);
+        when(service.getCepXml(cleanCep3)).thenReturn(cepModel3);
 
         // When
-        final String response = controller.getCepXml(cep);
+        String response1 = controller.getCepXml(cep1);
+        String response2 = controller.getCepXml(cep2);
+        String response3 = controller.getCepXml(cep3);
 
         // Then
-        assertThat(ResponseEntity.ok(response).getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(ResponseEntity.ok(response).getBody()).isEqualTo(new CepView(cepModel).toXml());
+        assertThat(ResponseEntity.ok(response1).getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(ResponseEntity.ok(response1).getBody()).isEqualTo(new CepView(cepModel1).toXml());
         assertEquals("<cep>\n" +
-                "  <cep>01001000</cep>\n" +
+                "  <cep>01001-000</cep>\n" +
                 "  <rua>Praça da Sé</rua>\n" +
                 "  <complemento>lado ímpar</complemento>\n" +
                 "  <bairro>Sé</bairro>\n" +
                 "  <cidade>São Paulo</cidade>\n" +
                 "  <estado>SP</estado>\n" +
                 "  <frete>7.85</frete>\n" +
-                "</cep>", response);
+                "</cep>", response1);
+
+        assertThat(ResponseEntity.ok(response2).getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(ResponseEntity.ok(response2).getBody()).isEqualTo(new CepView(cepModel2).toXml());
+        assertEquals("<cep>\n" +
+                "  <cep>20010-010</cep>\n" +
+                "  <rua>Praça Quinze de Novembro</rua>\n" +
+                "  <complemento></complemento>\n" +
+                "  <bairro>Centro</bairro>\n" +
+                "  <cidade>Rio de Janeiro</cidade>\n" +
+                "  <estado>RJ</estado>\n" +
+                "  <frete>7.85</frete>\n" +
+                "</cep>", response2);
+
+        assertThat(ResponseEntity.ok(response3).getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(ResponseEntity.ok(response3).getBody()).isEqualTo(new CepView(cepModel3).toXml());
+        assertEquals("<cep>\n" +
+                "  <cep>70297-400</cep>\n" +
+                "  <rua>EQS 414/415</rua>\n" +
+                "  <complemento></complemento>\n" +
+                "  <bairro>Asa Sul</bairro>\n" +
+                "  <cidade>Brasília</cidade>\n" +
+                "  <estado>DF</estado>\n" +
+                "  <frete>12.50</frete>\n" +
+                "</cep>", response3);
     }
 
 
     @Test
     void testGetCepJson() throws Exception {
         // Given
-        String cep = "01001-000";
-        final CepModel cepModel = new CepModel(cep, "Praça da Sé", "lado ímpar", "Sé", "São Paulo", "SP");
+        String cep1 = "01001-000";
+        String cleanCep1 = "01001000";
+        String cep2 = "20010-010";
+        String cleanCep2 = "20010010";
+        String cep3 = "70297-400";
+        String cleanCep3 = "70297400";
 
-        when(service.getCepJson(cep)).thenReturn(cepModel);
+        CepModel cepModel1 = new CepModel(cep1, "Praça da Sé", "lado ímpar", "Sé", "São Paulo", "SP");
+        CepModel cepModel2 = new CepModel(cep2, "Praça Quinze de Novembro", "", "Centro", "Rio de Janeiro", "RJ");
+        CepModel cepModel3 = new CepModel(cep3, "EQS 414/415", "", "Asa Sul", "Brasília", "DF");
+
+        when(service.getCepJson(cleanCep1)).thenReturn(cepModel1);
+        when(service.getCepJson(cleanCep2)).thenReturn(cepModel2);
+        when(service.getCepJson(cleanCep3)).thenReturn(cepModel3);
 
         // When
-        String response = controller.getCepJson(cep);
+        String response1 = controller.getCepJson(cep1);
+        String response2 = controller.getCepJson(cep2);
+        String response3 = controller.getCepJson(cep3);
 
         // Then
-        assertThat(ResponseEntity.ok(response).getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(ResponseEntity.ok(response).getBody()).isEqualTo(new CepView(cepModel).toJson());
-        assertEquals("{\"cep\":\"01001-000\",\"rua\":\"Praça da Sé\",\"complemento\":\"lado ímpar\",\"bairro\":\"Sé\",\"cidade\":\"São Paulo\",\"estado\":\"SP\",\"frete\":\"7.85\"}", response);
+        assertThat(ResponseEntity.ok(response1).getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(ResponseEntity.ok(response1).getBody()).isEqualTo(new CepView(cepModel1).toJson());
+        assertEquals("{\"cep\":\"01001-000\",\"rua\":\"Praça da Sé\",\"complemento\":\"lado ímpar\",\"bairro\":\"Sé\",\"cidade\":\"São Paulo\",\"estado\":\"SP\",\"frete\":\"7.85\"}", response1);
+
+        assertThat(ResponseEntity.ok(response2).getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(ResponseEntity.ok(response2).getBody()).isEqualTo(new CepView(cepModel2).toJson());
+        assertEquals("{\"cep\":\"20010-010\",\"rua\":\"Praça Quinze de Novembro\",\"complemento\":\"\",\"bairro\":\"Centro\",\"cidade\":\"Rio de Janeiro\",\"estado\":\"RJ\",\"frete\":\"7.85\"}", response2);
+
+        assertThat(ResponseEntity.ok(response3).getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(ResponseEntity.ok(response3).getBody()).isEqualTo(new CepView(cepModel3).toJson());
+        assertEquals("{\"cep\":\"70297-400\",\"rua\":\"EQS 414/415\",\"complemento\":\"\",\"bairro\":\"Asa Sul\",\"cidade\":\"Brasília\",\"estado\":\"DF\",\"frete\":\"12.50\"}", response3);
     }
 
     @Test
     public void testGetCepJsonP() throws Exception {
         String callBack = "myCall";
-        String cep = "01001-000";
-        CepModel cepModel = new CepModel(cep, "Praça da Sé", "lado ímpar", "Sé", "São Paulo", "SP");
+        String cleanCep1 = "01001000";
+        String cep1 = "01001-000";
+        String cep2 = "20010-010";
+        String cleanCep2 = "20010010";
+        String cep3 = "70297-400";
+        String cleanCep3 = "70297400";
 
-        when(service.getCepJsonP(cep, callBack)).thenReturn(cepModel);
+        CepModel cepModel1 = new CepModel(cep1, "Praça da Sé", "lado ímpar", "Sé", "São Paulo", "SP");
+        CepModel cepModel2 = new CepModel(cep2, "Praça Quinze de Novembro", "", "Centro", "Rio de Janeiro", "RJ");
+        CepModel cepModel3 = new CepModel(cep3, "EQS 414/415", "", "Asa Sul", "Brasília", "DF");
 
-        String response = controller.getCepJsonP(cep, callBack);
+        when(service.getCepJsonP(cleanCep1, callBack)).thenReturn(cepModel1);
+        when(service.getCepJsonP(cleanCep2, callBack)).thenReturn(cepModel2);
+        when(service.getCepJsonP(cleanCep3, callBack)).thenReturn(cepModel3);
 
-        assertThat(ResponseEntity.ok(response).getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(ResponseEntity.ok(response).getBody()).isEqualTo(new CepView(cepModel).toJsonP(callBack));
-        assertEquals(callBack + "({\"cep\":\"01001-000\",\"rua\":\"Praça da Sé\",\"complemento\":\"lado ímpar\",\"bairro\":\"Sé\",\"cidade\":\"São Paulo\",\"estado\":\"SP\",\"frete\":\"7.85\"})", response);
+        String response1 = controller.getCepJsonP(cep1, callBack);
+        String response2 = controller.getCepJsonP(cep2, callBack);
+        String response3 = controller.getCepJsonP(cep3, callBack);
+
+        assertThat(ResponseEntity.ok(response1).getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(ResponseEntity.ok(response1).getBody()).isEqualTo(new CepView(cepModel1).toJsonP(callBack));
+        assertEquals(callBack + "({\"cep\":\"01001-000\",\"rua\":\"Praça da Sé\",\"complemento\":\"lado ímpar\",\"bairro\":\"Sé\",\"cidade\":\"São Paulo\",\"estado\":\"SP\",\"frete\":\"7.85\"})", response1);
+
+        assertThat(ResponseEntity.ok(response2).getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(ResponseEntity.ok(response2).getBody()).isEqualTo(new CepView(cepModel2).toJsonP(callBack));
+        assertEquals(callBack + "({\"cep\":\"20010-010\",\"rua\":\"Praça Quinze de Novembro\",\"complemento\":\"\",\"bairro\":\"Centro\",\"cidade\":\"Rio de Janeiro\",\"estado\":\"RJ\",\"frete\":\"7.85\"})", response2);
+
+        assertThat(ResponseEntity.ok(response3).getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(ResponseEntity.ok(response3).getBody()).isEqualTo(new CepView(cepModel3).toJsonP(callBack));
+        assertEquals(callBack + "({\"cep\":\"70297-400\",\"rua\":\"EQS 414/415\",\"complemento\":\"\",\"bairro\":\"Asa Sul\",\"cidade\":\"Brasília\",\"estado\":\"DF\",\"frete\":\"12.50\"})", response3);
     }
 
 
