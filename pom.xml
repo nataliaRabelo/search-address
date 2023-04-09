@@ -22,6 +22,10 @@
 	</properties>
 	<repositories>
 		<repository>
+			<id>central</id>
+			<url>https://repo.maven.apache.org/maven2</url>
+		</repository>
+		<repository>
 			<id>jcenter-snapshots</id>
 			<name>jcenter</name>
 			<url>https://jcenter.bintray.com/</url>
@@ -31,7 +35,12 @@
 			<name>Clojars</name>
 			<url>https://repo.clojars.org/</url>
 		</repository>
+		<repository>
+			<id>cucumber-releases</id>
+			<url>https://repo.maven.apache.org/maven2/io/cucumber/</url>
+		</repository>
 	</repositories>
+
 
 	<dependencies>
 		<!--Springboot 2 -->
@@ -85,12 +94,6 @@
 			<version>1.6.6</version>
 			<scope>compile</scope>
 		</dependency>
-		<dependency>
-			<groupId>entity</groupId>
-			<artifactId>entity-txn</artifactId>
-			<version>0.1.4</version>
-			<scope>compile</scope>
-		</dependency>
 
 		<!--Lib para teste unitários - JUnit 5 -->
 		<dependency>
@@ -105,6 +108,45 @@
 			<artifactId>jackson-dataformat-xml</artifactId>
 			<version>2.13.1</version>
 		</dependency>
+		<!--Lib para Cucumber -->
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+			<version>5.8.1</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.inject</groupId>
+			<artifactId>javax.inject</artifactId>
+			<version>1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<version>5.8.1</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.cucumber</groupId>
+			<artifactId>cucumber-spring</artifactId>
+			<version>7.11.1</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.cucumber</groupId>
+			<artifactId>cucumber-java</artifactId>
+			<version>7.3.0</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>io.cucumber</groupId>
+			<artifactId>cucumber-junit</artifactId>
+			<version>7.3.0</version>
+			<scope>test</scope>
+		</dependency>
+
 		<!--Lib para XStream -->
 		<dependency>
 			<groupId>com.thoughtworks.xstream</groupId>
