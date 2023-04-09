@@ -1,18 +1,18 @@
+import br.com.searchaddress.arquiteturabackend.exception.CepNotFoundException;
+import br.com.searchaddress.arquiteturabackend.exception.InvalidCepException;
 import br.com.searchaddress.arquiteturabackend.model.CepModel;
 import br.com.searchaddress.arquiteturabackend.repository.CepRepository;
+
+import java.io.IOException;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-
 import org.springframework.web.client.RestTemplate;
-
-import java.io.IOException;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-
 import static org.mockito.Mockito.*;
 
 /**
@@ -103,7 +103,7 @@ public class CepRepositoryTest {
      * Testa o método findByCepJsonP() da classe CepRepository.
      */
     @Test
-    public void testFindByCepJsonP() throws IOException {
+    public void testFindByCepJsonP() throws IOException, CepNotFoundException {
         String callback = "myCallback";
         String url1 = baseUrlCep1 + formatPath2 + callback;
         String url2 = baseUrlCep2 + formatPath2 + callback;
@@ -145,7 +145,7 @@ public class CepRepositoryTest {
      * Testa o método findByCepXml() da classe CepRepository.
      */
     @Test
-    public void testFindByCepXml() {
+    public void testFindByCepXml() throws InvalidCepException {
 
         String url1 = baseUrlCep1 + formatPath3;
         String url2 = baseUrlCep2 + formatPath3;

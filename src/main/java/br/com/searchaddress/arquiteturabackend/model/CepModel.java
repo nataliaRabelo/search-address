@@ -17,9 +17,6 @@ public class CepModel {
     public String estado;
     public String frete;
 
-    public CepModel(){
-
-    }
     /**
      * Construtor padrão de cep através da entidade obtida pela base de dados.
      * @param cepEntity
@@ -46,6 +43,15 @@ public class CepModel {
         this.frete = frete;
     }
 
+    /**
+     * Construtor utilizado em testes automatizados.
+     * @param cep o cep do endereço.
+     * @param rua o nome da rua do endereço.
+     * @param complemento o complemento da rua do endereço.
+     * @param bairro o bairro do endereço.
+     * @param cidade a cidade do endereço.
+     * @param estado o estado do endereço.
+     */
     public CepModel(String cep, String rua, String complemento, String bairro, String cidade, String estado){
         this.cep = cep;
         this.rua = rua;

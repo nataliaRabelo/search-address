@@ -76,7 +76,7 @@ public class CucumberCepTest {
      * Método que envia a requisição para a API e armazena a resposta em um atributo.
      */
     @When("^a requisição é enviada para a API em XML$")
-    public void aRequisicaoEEnviadaParaAAPIEmXml(){
+    public void aRequisicaoEEnviadaParaAAPIEmXml() throws Exception {
         response = controller.getCepXml(cep);
 
     }
@@ -116,7 +116,7 @@ public class CucumberCepTest {
      * Método que envia a requisição para a API em formato JSON e armazena a resposta em um atributo.
      */
     @When("^a requisição é enviada para a API em JSON$")
-    public void aRequisicaoEEnviadaParaAAPIEmJson() {
+    public void aRequisicaoEEnviadaParaAAPIEmJson() throws Exception {
         response = controller.getCepJson(cep);
     }
 
@@ -144,7 +144,7 @@ public class CucumberCepTest {
      * MNétodo que envia a requisição para a API em formato JSONP e armazena a resposta em um atributo.
      */
     @When("^a requisição é enviada para a API em JSONP$")
-    public void aRequisicaoEEnviadaParaAAPIEmJsonP() {
+    public void aRequisicaoEEnviadaParaAAPIEmJsonP() throws Exception {
         response = controller.getCepJsonP(cep, callbackName);
     }
 
@@ -176,7 +176,7 @@ public class CucumberCepTest {
      * Método que envia uma requisição para a API com um CEP inválido e armazena a resposta em um atributo.
      */
     @When("a requisição é enviada para a API com CEP inválido")
-    public void a_requisição_é_enviada_para_a_api_com_cep_inválido() {
+    public void a_requisição_é_enviada_para_a_api_com_cep_inválido() throws Exception {
         response = controller.getCepJson(cep);
     }
 
