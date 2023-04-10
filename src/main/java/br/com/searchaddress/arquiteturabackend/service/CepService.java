@@ -23,9 +23,14 @@ public class CepService {
      * @return cepModel o endereço completo de um determinado cep.
      * @throws InvalidCepException exceção lançada quando cep não foi encontrado.
      */
-    public CepModel getCepJson(String cep) throws InvalidCepException {
-        if (cep.matches("\\d{8}") && !(cep.isEmpty()) && cep.matches("\\d+")) { // verifica se o cep contém 8 caracteres, se não está vazio e se só contém dígitos
-            return cepRepository.findByCepJson(cep);
+    public CepModel getCepJson(String cep) throws InvalidCepException, CepNotFoundException {
+        if (cep.matches("\\d{8}") && cep.matches("\\d+")) { // verifica se o cep contém 8 caracteres, se não está vazio e se só contém dígitos
+            CepModel cepModel = cepRepository.findByCepJson(cep);
+            if (cepModel != null) {
+                return cepModel;
+            } else {
+                throw new CepNotFoundException(cep);
+            }
         } else {
             throw new InvalidCepException(cep);
         }
@@ -39,7 +44,7 @@ public class CepService {
      * @throws CepNotFoundException lançada quando cep não foi encontrado.
      */
     public CepModel getCepJsonP(String cep, String callback) throws InvalidCepException, CepNotFoundException {
-        if (cep.matches("\\d{8}") && !(cep.isEmpty()) && cep.matches("\\d+")) {
+        if (cep.matches("\\d{8}") && cep.matches("\\d+")) {
             return cepRepository.findByCepJsonP(cep, callback);
         } else {
             throw new InvalidCepException(cep);

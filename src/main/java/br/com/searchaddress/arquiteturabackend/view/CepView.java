@@ -59,7 +59,7 @@ public class CepView {
     public String toJsonP(String callback) {
         Gson gson = new Gson();
         String json = gson.toJson(this);
-        return callback + "(" + json + ")";
+        return callback + "(" + json + ");";
     }
 
 }

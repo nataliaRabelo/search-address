@@ -17,6 +17,9 @@ public class CepModel {
     public String estado;
     public String frete;
 
+    public CepModel(){
+
+    }
     /**
      * Construtor padrão de cep através da entidade obtida pela base de dados.
      * @param cepEntity

@@ -10,6 +10,6 @@ public class CepNotFoundException extends Exception {
      * @param cep Parâmetro utilizado para tentar obter o endereço que não foi encontrado.
      */
     public CepNotFoundException(String cep){
-        super("Address associated with cep: " + cep + " was found.");
+        super("Address associated with cep: " + cep + " was not found.");
     }
 }

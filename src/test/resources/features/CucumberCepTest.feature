@@ -25,5 +25,11 @@ Feature: Consulta de CEP
   Scenario: Consulta de CEP inválido
     Given que o usuário deseja consultar um CEP inválido
     When a requisição é enviada para a API com CEP inválido
-    Then o status code da resposta é 400
+    Then o status code da resposta invalida é 400
+    And a mensagem de erro é retornada
+
+  Scenario: Consulta de CEP não existente
+    Given que o usuário deseja consultar um CEP nao existente
+    When a requisição é enviada para a API com CEP nao existente
+    Then o status code da resposta not found é 404
     And a mensagem de erro é retornada

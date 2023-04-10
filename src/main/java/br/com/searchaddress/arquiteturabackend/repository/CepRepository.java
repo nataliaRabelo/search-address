@@ -35,8 +35,9 @@ public class CepRepository {
         CepEntity response = restTemplate.getForObject(url, CepEntity.class);
         if (response != null && response.getCep() != null) {
             return new CepModel(response);
+        } else {
+            return null;
         }
-        return null;
     }
 
     /**
