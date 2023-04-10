@@ -220,7 +220,7 @@ public class CucumberCepTest {
     }
 
     /**
-     * Método que define que o usuário deseja consultar um CEP inválido.
+     * Método que define que o usuário deseja consultar um CEP não existente.
      */
     @Given("^que o usuário deseja consultar um CEP nao existente$")
     public void queOUsuarioDesejaConsultarUmCEPNaoExistente() {
@@ -228,7 +228,7 @@ public class CucumberCepTest {
     }
 
     /**
-     * Método que envia uma requisição para a API com um CEP inválido e armazena a resposta em um atributo.
+     * Método que envia uma requisição para a API com um CEP não existente e armazena a resposta em um atributo.
      */
     @When("a requisição é enviada para a API com CEP nao existente")
     public void a_requisição_é_enviada_para_a_api_com_cep_nao_existente() throws Exception {
@@ -245,7 +245,7 @@ public class CucumberCepTest {
     }
 
     /**
-     * Método responsável por verificar se a mensagem de erro é do tipo 400.
+     * Método responsável por verificar se a mensagem de erro é do tipo 404.
      * @param code 400 bad request.
      */
     @Then("^o status code da resposta not found é (\\d+)$")
