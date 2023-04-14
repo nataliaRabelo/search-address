@@ -104,15 +104,15 @@ public class CepViewTest {
         CepView cepView2 = new CepView(cepModel2);
         CepView cepView3 = new CepView(cepModel3);
 
-        String expected1 = "myCallback({\"cep\":\"01001-000\",\"rua\":\"Praça da Sé\",\"complemento\":\"lado ímpar\",\"bairro\":\"Sé\",\"cidade\":\"São Paulo\",\"estado\":\"SP\",\"frete\":\"7.85\"})";
+        String expected1 = "myCallback({\"cep\":\"01001-000\",\"rua\":\"Praça da Sé\",\"complemento\":\"lado ímpar\",\"bairro\":\"Sé\",\"cidade\":\"São Paulo\",\"estado\":\"SP\",\"frete\":\"7.85\"});";
         String actual1 = cepView1.toJsonP("myCallback");
         assertEquals(expected1, actual1);
 
-        String expected2 = "myCallback({\"cep\":\"20010-010\",\"rua\":\"Praça Quinze de Novembro\",\"complemento\":\"\",\"bairro\":\"Centro\",\"cidade\":\"Rio de Janeiro\",\"estado\":\"RJ\",\"frete\":\"7.85\"})";
+        String expected2 = "myCallback({\"cep\":\"20010-010\",\"rua\":\"Praça Quinze de Novembro\",\"complemento\":\"\",\"bairro\":\"Centro\",\"cidade\":\"Rio de Janeiro\",\"estado\":\"RJ\",\"frete\":\"7.85\"});";
         String actual2 = cepView2.toJsonP("myCallback");
         assertEquals(expected2, actual2);
 
-        String expected3 = "myCallback({\"cep\":\"70297-400\",\"rua\":\"EQS 414/415\",\"complemento\":\"\",\"bairro\":\"Asa Sul\",\"cidade\":\"Brasília\",\"estado\":\"DF\",\"frete\":\"12.50\"})";
+        String expected3 = "myCallback({\"cep\":\"70297-400\",\"rua\":\"EQS 414/415\",\"complemento\":\"\",\"bairro\":\"Asa Sul\",\"cidade\":\"Brasília\",\"estado\":\"DF\",\"frete\":\"12.50\"});";
         String actual3 = cepView3.toJsonP("myCallback");
         assertEquals(expected3, actual3);
     }

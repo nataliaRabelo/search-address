@@ -154,15 +154,15 @@ class CepControllerTest {
 
         assertThat(ResponseEntity.ok(response1).getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(ResponseEntity.ok(response1).getBody()).isEqualTo(new CepView(cepModel1).toJsonP(callBack));
-        assertEquals(callBack + "({\"cep\":\"01001-000\",\"rua\":\"Praça da Sé\",\"complemento\":\"lado ímpar\",\"bairro\":\"Sé\",\"cidade\":\"São Paulo\",\"estado\":\"SP\",\"frete\":\"7.85\"})", response1);
+        assertEquals(callBack + "({\"cep\":\"01001-000\",\"rua\":\"Praça da Sé\",\"complemento\":\"lado ímpar\",\"bairro\":\"Sé\",\"cidade\":\"São Paulo\",\"estado\":\"SP\",\"frete\":\"7.85\"});", response1);
 
         assertThat(ResponseEntity.ok(response2).getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(ResponseEntity.ok(response2).getBody()).isEqualTo(new CepView(cepModel2).toJsonP(callBack));
-        assertEquals(callBack + "({\"cep\":\"20010-010\",\"rua\":\"Praça Quinze de Novembro\",\"complemento\":\"\",\"bairro\":\"Centro\",\"cidade\":\"Rio de Janeiro\",\"estado\":\"RJ\",\"frete\":\"7.85\"})", response2);
+        assertEquals(callBack + "({\"cep\":\"20010-010\",\"rua\":\"Praça Quinze de Novembro\",\"complemento\":\"\",\"bairro\":\"Centro\",\"cidade\":\"Rio de Janeiro\",\"estado\":\"RJ\",\"frete\":\"7.85\"});", response2);
 
         assertThat(ResponseEntity.ok(response3).getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(ResponseEntity.ok(response3).getBody()).isEqualTo(new CepView(cepModel3).toJsonP(callBack));
-        assertEquals(callBack + "({\"cep\":\"70297-400\",\"rua\":\"EQS 414/415\",\"complemento\":\"\",\"bairro\":\"Asa Sul\",\"cidade\":\"Brasília\",\"estado\":\"DF\",\"frete\":\"12.50\"})", response3);
+        assertEquals(callBack + "({\"cep\":\"70297-400\",\"rua\":\"EQS 414/415\",\"complemento\":\"\",\"bairro\":\"Asa Sul\",\"cidade\":\"Brasília\",\"estado\":\"DF\",\"frete\":\"12.50\"});", response3);
     }
 
 
